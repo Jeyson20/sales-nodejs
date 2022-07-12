@@ -1,9 +1,9 @@
-import { getConnection, sql, querys } from "../database/index";
+import { getConnection, sql, productsQuery } from "../database/index";
 
 export const getProducts = async (req, res) => {
     try {
         const pool = await getConnection()
-        const result = await pool.request().query(querys.getAllProducts);
+        const result = await pool.request().query(productsQuery.getAllProducts);
         res.json(result.recordset);
     } catch (error) {
         res.status(500);
@@ -18,7 +18,7 @@ export const getProductById = async (req, res) => {
         const result = await pool
             .request()
             .input('Id', id)
-            .query(querys.getProductById);
+            .query(productsQuery.getProductById);
         res.send(result.recordset[0]);
     } catch (error) {
         res.status(500);
@@ -29,7 +29,7 @@ export const getProductById = async (req, res) => {
 export const getTotalProducts = async (req, res) => {
     try {
         const pool = await getConnection()
-        const result = await pool.request().query(querys.getTotalProducts);
+        const result = await pool.request().query(productsQuery.getTotalProducts);
         res.json(result.recordset[0]);
     } catch (error) {
         res.status(500);
@@ -54,7 +54,7 @@ export const newProduct = async (req, res) => {
             .input('unitPrice', sql.Decimal, unitPrice)
             .input('unitsInStock', sql.Int, unitsInStock)
             .input('created', sql.Date, created)
-            .query(querys.createNewProduct);
+            .query(productsQuery.createNewProduct);
         res.json({ msg: 'Se ha creado un nuevo producto' })
 
     } catch (error) {
@@ -70,7 +70,7 @@ export const deleteProductById = async (req, res) => {
         await pool
             .request()
             .input('Id', id)
-            .query(querys.deleteProductById);
+            .query(productsQuery.deleteProductById);
 
         // if (result.rowsAffected[0] === 1)
         res.sendStatus(204);
@@ -101,7 +101,7 @@ export const updateProductById = async (req, res) => {
             .input('unitsInStock', sql.Int, unitsInStock)
             .input('lastModified', sql.Date, lastModified)
             .input('Id', sql.Int, id)
-            .query(querys.updateProductById);
+            .query(productsQuery.updateProductById);
         res.json({ msg: `Se ha actualizado el producto ${id}` })
     } catch (error) {
         res.status(500);
