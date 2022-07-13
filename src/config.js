@@ -7,4 +7,5 @@ export default{
    dbPass: process.env.DB_PWD || '',
    dbName:process.env.DB_NAME || '',
    dbServer: process.env.DB_SERVER || '',
+   secretkey: process.env.SECRET ||''
 }

@@ -4,9 +4,9 @@ import {deleteCategoryById, getCategories, getCategoryById, newCategory} from '.
 const router = Router();
 
 //routes
-router.get('/api/categories', getCategories);
-router.get('/api/categories/:id', getCategoryById);
-router.post('/api/categories', newCategory);
-router.delete('/api/categories/:id', deleteCategoryById);
+router.get('/', getCategories);
+router.get('/:id', getCategoryById);
+router.post('/', newCategory);
+router.delete('/:id', deleteCategoryById);
 
 export default router;

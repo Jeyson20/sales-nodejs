@@ -28,12 +28,10 @@ export const getCategoryById = async (req, res) => {
 
 export const newCategory = async (req, res) => {
     const { categoryname, description } = req.body
-    let { created } = req.body
+    let created = new Date()
     if (categoryname == null || description == null) {
         return res.status(400).json({ msg: 'Bad Request. Please fill all fields' })
     }
-    created = new Date()
-
     try {
         const pool = await getConnection();
         await pool.request()
